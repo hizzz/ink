@@ -1220,7 +1220,7 @@ The following is valid, and frequently useful.
 	*	"How did you do at the crossword, Monsieur?"[] I asked.
 		-> quitewell
 	*	I said nothing[] and neither did my Master.
-	-	We feel into companionable silence once more.
+	-	We fell into companionable silence once more.
 
 Note the level 2 gather point directly below the first option: there's nothing to gather here, really, but it gives us a handy place to divert the second option to.
 
@@ -2944,7 +2944,7 @@ We can model devices with multiple states. Back to the kettle again...
 	LIST OnOff = on, off
 	LIST HotCold = cold, warm, hot
 
-	VAR kettleState = off, cold
+	VAR kettleState = (off, cold) // we need brackets because it's a proper, multi-valued list now
 
 	=== function turnOnKettle() ===
 	{ kettleState ? hot:
