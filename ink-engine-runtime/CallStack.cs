@@ -45,6 +45,7 @@ namespace Ink.Runtime
             public List<Element> callstack;
             public int threadIndex;
             public Pointer previousPointer;
+            private readonly Story _storyContext;
 
             public Thread() {
                 callstack = new List<Element>();
@@ -52,7 +53,8 @@ namespace Ink.Runtime
 
 			public Thread(Dictionary<string, object> jThreadObj, Story storyContext) : this() {
                 threadIndex = (int) jThreadObj ["threadIndex"];
-
+                _storyContext = storyContext;
+                
 				List<object> jThreadCallstack = (List<object>) jThreadObj ["callstack"];
 				foreach (object jElTok in jThreadCallstack) {
 
@@ -147,7 +149,15 @@ namespace Ink.Runtime
 
                 if (!previousPointer.isNull)
                 {
-                    writer.WriteProperty("previousContentObject", previousPointer.Resolve().path.ToString());
+                    var path = previousPointer.Resolve()?.path?.ToString();
+                    if (!string.IsNullOrEmpty(path))
+                    {
+                        writer.WriteProperty("previousContentObject", path);
+                    }
+                    else
+                    {
+                        _storyContext.Error($"Story.Callstack.Thread.WriteJson NULL! I={previousPointer.index} CC={previousPointer.container.content.Count}");
+                    }
                 }
 
                 writer.WriteObjectEnd();
