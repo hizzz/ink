@@ -2879,7 +2879,7 @@ namespace Ink.Runtime
                 // Try to get from the current path first
                 var pointer = state.currentPointer;
                 if (!pointer.isNull) {
-                    dm = pointer.Resolve().debugMetadata;
+                    dm = pointer.Resolve()?.debugMetadata;
                     if (dm != null) {
                         return dm;
                     }
