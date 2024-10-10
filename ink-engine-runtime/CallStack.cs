@@ -156,7 +156,7 @@ namespace Ink.Runtime
                     }
                     else
                     {
-                        _storyContext.Error($"Story.Callstack.Thread.WriteJson NULL! I={previousPointer.index} CC={previousPointer.container.content.Count}");
+                        _storyContext.Warning($"Story.Callstack.Thread.WriteJson NULL! I={previousPointer.index} CC={previousPointer.container.content.Count}");
                     }
                 }
 
